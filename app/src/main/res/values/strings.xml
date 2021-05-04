@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">RedRockExam</string>
+    <string name="title_activity_bottom_navigation">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="please_input">请输入账户</string>
+    <string name="plese_input_pass">请输入密码</string>
+    <string name="inputagain">请再次输入</string>
+</resources>
