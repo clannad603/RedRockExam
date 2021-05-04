@@ -14,4 +14,7 @@ class LoginRepository(private val dao:LoginDao) {
     suspend fun findOwner(owner:String): LoginInfo {
         return dao.findTheOwner(owner)
     }
+    suspend fun updateUri(owner: String,uri:String){
+        return dao.updateUserInfo(owner, uri)
+    }
 }

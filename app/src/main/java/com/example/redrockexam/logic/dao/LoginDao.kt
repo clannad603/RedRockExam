@@ -12,6 +12,8 @@ interface LoginDao {
     suspend fun insertUser(loginInfo: LoginInfo):Long
     @Update
     suspend fun updateUser(newUser: LoginInfo)
+    @Query("UPDATE logininfo SET uri= :uri WHERE owner = :owner")
+    suspend fun updateUserInfo(owner: String,uri:String)
     @Query("select * from LoginInfo")
     fun loadAllUsers():MutableList<LoginInfo>
     @Query("select * from LoginInfo where owner = :owner")

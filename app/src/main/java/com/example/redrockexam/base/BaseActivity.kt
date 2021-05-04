@@ -1,6 +1,9 @@
 package com.example.myapplication.ui.base
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -10,12 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.redrockexam.logic.model.constant.Constant
+import com.example.redrockexam.ui.account.login.LoginActivity
+import com.example.redrockexam.utils.ActivityCollector
 
 
 import com.example.redrockexam.utils.MyPreference
@@ -35,10 +41,35 @@ abstract class BaseActivity <VM : BaseViewModel, VB : ViewBinding> :AppCompatAct
     lateinit var v: VB
     var isLogin: Boolean by MyPreference(Constant.KEY_LOGIN, false)
     var owner:String by MyPreference(Constant.KEY_OWNER,"")
+    lateinit var receiver:ForceOfflineReceiver
+
+    inner  class ForceOfflineReceiver:BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent?) {
+
+           AlertDialog.Builder(context).apply {
+               setTitle("Warning")
+               setMessage("您是否想好要退出本应用呢？")
+               setCancelable(false)
+               setPositiveButton("确定"){_,_,->
+                   ActivityCollector.finishAll()
+                   isLogin=false
+                   owner=""
+                   val i =Intent(context,LoginActivity::class.java)
+                   context.startActivity(i)
+               }
+               setNegativeButton("取消"){it,_,->
+                   it.dismiss()
+               }
+               show()
+           }
+        }
+
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ActivityCollector.addActivity(this)
         val type = javaClass.genericSuperclass as ParameterizedType
         val clazz1 = type.actualTypeArguments[0] as Class<VM>
         vm = ViewModelProvider(this).get(clazz1)
@@ -81,10 +112,20 @@ abstract class BaseActivity <VM : BaseViewModel, VB : ViewBinding> :AppCompatAct
 
     override fun onDestroy() {
         super.onDestroy()
+        ActivityCollector.removeActivity(this)
     }
 
     abstract fun initData()
-
+    override fun onResume() {
+        super.onResume()
+        val intentFilter=IntentFilter()
+        intentFilter.addAction("com.example.FORCE_OFFLINE")
+        receiver = ForceOfflineReceiver()
+        registerReceiver(receiver,intentFilter)
+    }
     abstract fun initView()
-
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(receiver)
+    }
 }

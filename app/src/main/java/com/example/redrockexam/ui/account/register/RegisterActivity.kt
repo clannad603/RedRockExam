@@ -1,10 +1,7 @@
 package com.example.redrockexam.ui.account.register
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.myapplication.ui.base.BaseActivity
-import com.example.redrockexam.MainActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityRegisterBinding
 import com.example.redrockexam.logic.model.bean.LoginInfo

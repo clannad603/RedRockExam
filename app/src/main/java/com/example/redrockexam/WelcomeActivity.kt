@@ -7,6 +7,7 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.myapplication.ui.base.BaseViewModel
 import com.example.redrockexam.databinding.ActivityWelcomeBinding
 import com.example.redrockexam.ui.account.login.LoginActivity
+import com.example.redrockexam.ui.mainview.MainActivity
 import com.example.redrockexam.utils.StatusBarUtils
 
 class WelcomeActivity : BaseActivity<BaseViewModel,ActivityWelcomeBinding>(){

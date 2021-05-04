@@ -1,12 +1,10 @@
 package com.example.redrockexam.ui.account.login
 
-import android.util.Log
 import androidx.lifecycle.Observer
 import com.example.myapplication.ui.base.BaseActivity
-import com.example.redrockexam.MainActivity
+import com.example.redrockexam.ui.mainview.MainActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityLoginBinding
-import com.example.redrockexam.logic.model.bean.LoginInfo
 import com.example.redrockexam.ui.account.register.RegisterActivity
 import com.example.redrockexam.utils.AnimationUtils
 import com.example.redrockexam.utils.StatusBarUtils
@@ -51,10 +49,10 @@ class LoginActivity : BaseActivity<LoginActivityViewModel, ActivityLoginBinding>
 
     private fun doLogin(username: String, password: String) {
         vm.find(username)
-
         vm.userInfo.observe(this, Observer {
             if (it!=null && it.password == password){
                 isLogin = true
+                owner = username
                 startAnotherActivity(MainActivity::class.java)
             } else {
                 "数据库中未查询到，请注册后在登录".showToast(this, "short")
