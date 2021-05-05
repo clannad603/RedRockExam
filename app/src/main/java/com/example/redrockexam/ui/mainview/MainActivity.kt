@@ -4,6 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -11,10 +15,13 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
+import com.example.redrockexam.TotoListApplication.Companion.context
 import com.example.redrockexam.databinding.ActivityMainBinding
 import com.example.redrockexam.logic.model.bean.LoginInfo
-import com.example.redrockexam.utils.AnimationUtils
-import com.example.redrockexam.utils.StatusBarUtils
+import com.example.redrockexam.ui.account.login.LoginActivity
+import com.example.redrockexam.ui.content.ContentActivity
+import com.example.redrockexam.ui.task.TaskActivity
+import com.example.redrockexam.utils.*
 
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
@@ -43,8 +50,54 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         })
     }
 
-    override fun initListener() {
 
+
+    override fun initListener() {
+        adapter!!.itemClick {
+            val intent = Intent(mContext, ContentActivity::class.java).apply {
+                putExtra(ContentActivity.TAG, adapter!!.listData[it])
+            }
+            startActivity(intent)
+        }
+        adapter!!.itemLongClick {it->
+            AlertDialog.Builder(mContext).apply {
+                setTitle("Asking")
+                setMessage("您是否想好要删除这个清单呢？")
+                setCancelable(false)
+                setPositiveButton("确定"){_,_,->
+                    list?.remove(adapter!!.listData[it])
+                    adapter!!.notifyDataSetChanged()
+                }
+                setNegativeButton("取消"){it,_,->
+                    it.dismiss()
+                }
+                show()
+            }
+
+        }
+        v.btnNew.setOnClickListener {
+            AnimationUtils.buttonClickAnimation(it)
+            startAnotherActivity(TaskActivity::class.java)
+        }
+        v.flABtnAdd.setOnClickListener {
+            AnimationUtils.buttonClickAnimation(it)
+            val dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_style,null)
+            AlertDialog.Builder(mContext).apply {
+                setTitle("Asking")
+                setMessage("您是否想好要添加一个清单呢？")
+                setView(dialogView)
+                setCancelable(false)
+                setPositiveButton("确定"){it,_,->
+                   val edit = dialogView.findViewById(R.id.tv_tag) as EditText
+                    list?.add(edit.text.toString())
+                    adapter!!.notifyDataSetChanged()
+                }
+                setNegativeButton("取消"){it,_,->
+                    it.dismiss()
+                }
+                show()
+            }
+        }
         v.btnOut.setOnClickListener {
             AnimationUtils.buttonClickAnimation(it)
             val intent = Intent("com.example.FORCE_OFFLINE")
@@ -56,6 +109,10 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
             intent.type = "image/*"
             startActivityForResult(intent, fromALbum)
             true
+        }
+        v.imageViewUser.setOnClickListener {
+            AnimationUtils.buttonClickAnimation(it)
+            "禁止在乱点".showToast(this,"short")
         }
     }
 
@@ -71,6 +128,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         v.mRecyclerView.adapter=adapter
         StatusBarUtils.drawableStatusBar(this, R.color.white)
         v.tvUsername.text = owner
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

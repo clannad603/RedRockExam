@@ -13,4 +13,13 @@
     <string name="hello_word">hello_word</string>
     <string name="start_new">开启新任务</string>
     <string name="new_ask">新任务</string>
+    <string name="input_new_tag">输入新分类名</string>
+    <string name="add_tag">设置标签</string>
+    <string name="add_title">设置标题</string>
+    <string name="add_content">输入内容</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="set_start">设置开始时间</string>
+
+
 </resources>
