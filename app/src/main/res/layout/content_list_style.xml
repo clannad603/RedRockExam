@@ -19,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/orane" />
+            android:src="@drawable/vegetable" />
 
         <TextView
             android:id="@+id/textView"

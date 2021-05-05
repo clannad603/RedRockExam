@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.content.ContentActivity">
-
+    tools:context=".ui.search.SearchActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@mipmap/ic_back_white"
-        app:title="" />
+        app:title="@string/search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
@@ -24,25 +23,10 @@
         android:layout_height="425dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.922"
+        app:layout_constraintVertical_bias="0.124"
         tools:listitem="@layout/content_list_style" />
-
-    <CalendarView
-        android:firstDayOfWeek="1"
-        android:shownWeekCount="5"
-        android:selectedWeekBackgroundColor="@color/cardview_dark_background"
-        android:focusedMonthDateColor="@color/hypergreen"
-        android:weekSeparatorLineColor="@color/hyperred"
-        android:unfocusedMonthDateColor="#F9F"
-        android:id="@+id/calendarView"
-        android:layout_width="315dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/mRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

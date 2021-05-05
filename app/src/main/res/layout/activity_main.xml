@@ -24,7 +24,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="主页面"
-        app:titleTextColor="@color/cardview_dark_background" />
+        app:titleTextColor="@color/cardview_dark_background"
+        app:menu="@menu/home_toolbar"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -54,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewUser"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintVertical_bias="0.987" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -163,5 +164,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="500dp" />
+
+    <TextClock
+        android:id="@+id/dataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:format12Hour="yyyy.MM.dd\nEE     a"
+        android:format24Hour="yyyy.MM.dd\nEE     a"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

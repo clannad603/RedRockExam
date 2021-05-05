@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -20,6 +21,7 @@ import com.example.redrockexam.databinding.ActivityMainBinding
 import com.example.redrockexam.logic.model.bean.LoginInfo
 import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.ui.content.ContentActivity
+import com.example.redrockexam.ui.search.SearchActivity
 import com.example.redrockexam.ui.task.TaskActivity
 import com.example.redrockexam.utils.*
 
@@ -53,9 +55,16 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
 
 
     override fun initListener() {
+        v.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.homeSearch->startAnotherActivity(SearchActivity::class.java)
+            }
+            true
+        }
         adapter!!.itemClick {
-            val intent = Intent(mContext, ContentActivity::class.java).apply {
-                putExtra(ContentActivity.TAG, adapter!!.listData[it])
+            val intent = Intent(this, ContentActivity::class.java).apply {
+                putExtra("TAG", adapter!!.listData[it])
+                Log.d("main",adapter!!.listData[it])
             }
             startActivity(intent)
         }

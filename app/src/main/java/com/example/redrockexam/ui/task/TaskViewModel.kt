@@ -1,5 +1,6 @@
 package com.example.redrockexam.ui.task
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.ui.base.BaseViewModel
 import com.example.redrockexam.TotoListApplication
@@ -13,7 +14,16 @@ class TaskViewModel:BaseViewModel() {
     private val repository by lazy {
         ContentRepository(dao)
     }
+    var numOfUpdate = MutableLiveData<Int>()
+    var numOfTheApp  = MutableLiveData<Long>()
+    val contentInfo  =MutableLiveData<ContentInfo>()
     fun insert(contentInfo: ContentInfo) = viewModelScope.launch {
-        repository.insert(contentInfo)
+         numOfTheApp.value = repository.insert(contentInfo)
+    }
+    fun find(owner:String,tag:String,titile:String)=viewModelScope.launch {
+        contentInfo.value=repository.find(owner,tag,titile)
+    }
+    fun update(owner: String,tag: String,titile: String,content:String)=viewModelScope.launch {
+       numOfUpdate.value= repository.updateDetail(owner,tag,titile,content)
     }
 }
