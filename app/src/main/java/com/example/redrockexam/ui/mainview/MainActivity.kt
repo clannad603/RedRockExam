@@ -28,8 +28,8 @@ import com.example.redrockexam.utils.*
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
     val fromALbum = 1
-    var adapter:ToDoListAdapter?=null
-    var list:ArrayList<String>?=null
+    var adapter: ToDoListAdapter? = null
+    var list: ArrayList<String>? = null
     override fun initVM() {
         vm.find(owner)
         vm.userInfo.observe(this, Observer {
@@ -50,34 +50,49 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                 )
             ).into(v.imageViewUser)
         })
+        vm._tagList.observe(this, Observer {
+            if (it != null) {
+                for (tags in it) {
+                    if (tags.tag != "我的一天"
+                        && tags.tag != "总任务"
+                        && tags.tag != "重要任务"
+                        && tags.tag != "不太重要任务"
+                    ) {
+                        list?.add(tags.tag)
+                        adapter!!.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
     }
-
 
 
     override fun initListener() {
         v.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.homeSearch->startAnotherActivity(SearchActivity::class.java)
+            when (it.itemId) {
+                R.id.homeSearch -> startAnotherActivity(SearchActivity::class.java)
             }
             true
         }
         adapter!!.itemClick {
             val intent = Intent(this, ContentActivity::class.java).apply {
                 putExtra("TAG", adapter!!.listData[it])
-                Log.d("main",adapter!!.listData[it])
+                Log.d("main", adapter!!.listData[it])
             }
             startActivity(intent)
         }
-        adapter!!.itemLongClick {it->
+        adapter!!.itemLongClick { it ->
             AlertDialog.Builder(mContext).apply {
                 setTitle("Asking")
                 setMessage("您是否想好要删除这个清单呢？")
                 setCancelable(false)
-                setPositiveButton("确定"){_,_,->
-                    list?.remove(adapter!!.listData[it])
+                setPositiveButton("确定") { _, _ ->
+                    val tag = adapter!!.listData[it]
+                    list?.remove(tag)
+                    vm.deleteTag(owner, tag)
                     adapter!!.notifyDataSetChanged()
                 }
-                setNegativeButton("取消"){it,_,->
+                setNegativeButton("取消") { it, _ ->
                     it.dismiss()
                 }
                 show()
@@ -90,18 +105,18 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         }
         v.flABtnAdd.setOnClickListener {
             AnimationUtils.buttonClickAnimation(it)
-            val dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_style,null)
+            val dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_style, null)
             AlertDialog.Builder(mContext).apply {
                 setTitle("Asking")
                 setMessage("您是否想好要添加一个清单呢？")
                 setView(dialogView)
                 setCancelable(false)
-                setPositiveButton("确定"){it,_,->
-                   val edit = dialogView.findViewById(R.id.tv_tag) as EditText
+                setPositiveButton("确定") { it, _ ->
+                    val edit = dialogView.findViewById(R.id.tv_tag) as EditText
                     list?.add(edit.text.toString())
                     adapter!!.notifyDataSetChanged()
                 }
-                setNegativeButton("取消"){it,_,->
+                setNegativeButton("取消") { it, _ ->
                     it.dismiss()
                 }
                 show()
@@ -121,7 +136,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         }
         v.imageViewUser.setOnClickListener {
             AnimationUtils.buttonClickAnimation(it)
-            "禁止在乱点".showToast(this,"short")
+            "禁止在乱点".showToast(this, "short")
         }
     }
 
@@ -132,9 +147,9 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
     override fun initView() {
         list = ArrayList()
         initList()
-        adapter = ToDoListAdapter(mContext,list!!)
-        v.mRecyclerView.layoutManager=LinearLayoutManager(mContext)
-        v.mRecyclerView.adapter=adapter
+        adapter = ToDoListAdapter(mContext, list!!)
+        v.mRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        v.mRecyclerView.adapter = adapter
         StatusBarUtils.drawableStatusBar(this, R.color.white)
         v.tvUsername.text = owner
 
@@ -153,10 +168,11 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         }
     }
 
-    private fun initList(){
+    private fun initList() {
         list?.add("我的一天")
         list?.add("总任务")
         list?.add("重要任务")
         list?.add("不太重要任务")
+        vm.getTag(owner)
     }
 }

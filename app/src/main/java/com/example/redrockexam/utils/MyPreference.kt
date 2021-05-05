@@ -9,16 +9,22 @@ import kotlin.reflect.KProperty
 
 class MyPreference<T>(val name: String, private val default: T) {
     private val prefs: SharedPreferences by lazy {
-       TotoListApplication.context.applicationContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        TotoListApplication.context.applicationContext.getSharedPreferences(
+            name,
+            Context.MODE_PRIVATE
+        )
     }
+
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         Log.i("info", "调用$this 的getValue()")
         return getSharePreferences(name, default)
     }
+
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         Log.i("info", "调用$this 的setValue() value参数值为：$value")
         putSharePreferences(name, value)
     }
+
     @SuppressLint("CommitPrefEdits")
     private fun putSharePreferences(name: String, value: T) = with(prefs.edit()) {
         when (value) {

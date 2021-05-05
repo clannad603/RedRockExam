@@ -9,6 +9,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-open class BaseViewModel :ViewModel(){
+
+open class BaseViewModel : ViewModel() {
 
 }

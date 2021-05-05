@@ -6,9 +6,9 @@ import com.example.redrockexam.databinding.ContentListStyleBinding
 import com.example.redrockexam.databinding.ItemFormBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
 
-class ContentListAdapter(context: Activity, listDatas:ArrayList<ContentInfo>):
-    BaseAdapter<ContentListStyleBinding, ContentInfo>(context,listDatas){
+class ContentListAdapter(context: Activity, listDatas: ArrayList<ContentInfo>) :
+    BaseAdapter<ContentListStyleBinding, ContentInfo>(context, listDatas) {
     override fun convert(v: ContentListStyleBinding, t: ContentInfo, position: Int) {
-       v.textView.text = t.title
+        v.textView.text = t.title
     }
 }

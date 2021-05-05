@@ -7,7 +7,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 
 object AnimationUtils {
-    fun buttonClickAnimation(v: View){
+    fun buttonClickAnimation(v: View) {
         val animator = ObjectAnimator.ofFloat(v, "scaleX", 1f, 0.8f)
         animator.duration = 150
         animator.interpolator = LinearInterpolator()

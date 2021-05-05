@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity<LoginActivityViewModel, ActivityLoginBinding>
     }
 
     override fun initView() {
-    StatusBarUtils.drawableStatusBar(this,R.color.white)
+        StatusBarUtils.drawableStatusBar(this, R.color.white)
     }
 
     private fun attemptLogin() {
@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity<LoginActivityViewModel, ActivityLoginBinding>
     private fun doLogin(username: String, password: String) {
         vm.find(username)
         vm.userInfo.observe(this, Observer {
-            if (it!=null && it.password == password){
+            if (it != null && it.password == password) {
                 isLogin = true
                 owner = username
                 startAnotherActivity(MainActivity::class.java)

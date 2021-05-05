@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".TotoListApplication"
@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedRockExam">
-        <activity android:name=".ui.search.SearchActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.task.TaskActivity" />
         <activity android:name=".ui.content.ContentActivity" />
         <activity android:name=".ui.account.register.RegisterActivity" />
@@ -31,6 +32,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.mainview.MainActivity" />
+        <receiver android:name=".logic.broadcast.SampleBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

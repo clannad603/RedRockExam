@@ -29,4 +29,10 @@ interface ContentDao {
 
     @Query("select * from ContentInfo where owner=:owner and title=:title")
     suspend fun getFromTag(owner: String, title: String): MutableList<ContentInfo>
+
+    @Query("select * from ContentInfo where owner=:owner")
+    suspend fun getTag(owner: String): MutableList<ContentInfo>
+
+    @Query("delete from ContentInfo where tag = :tag and owner =:owner")
+    suspend fun deleteTag(owner: String, tag: String): Int
 }

@@ -9,17 +9,18 @@ import com.example.redrockexam.logic.model.bean.LoginInfo
 import com.example.redrockexam.logic.repository.LoginRepository
 import kotlinx.coroutines.launch
 
-class RegisterActivityViewModel:BaseViewModel() {
+class RegisterActivityViewModel : BaseViewModel() {
     val dao = AppDatabase.getDatabase(TotoListApplication.context).personDao()
     private val repository by lazy {
         LoginRepository(dao)
     }
-    var numOfTheApp  = MutableLiveData<Long>()
+    var numOfTheApp = MutableLiveData<Long>()
     fun insert(loginInfo: LoginInfo) = viewModelScope.launch {
-       numOfTheApp.value= repository.insert(loginInfo)
+        numOfTheApp.value = repository.insert(loginInfo)
     }
-    var userInfo  = MutableLiveData<LoginInfo>()
-    fun find(owner:String) = viewModelScope.launch {
+
+    var userInfo = MutableLiveData<LoginInfo>()
+    fun find(owner: String) = viewModelScope.launch {
         userInfo.value = repository.findOwner(owner)
     }
 }

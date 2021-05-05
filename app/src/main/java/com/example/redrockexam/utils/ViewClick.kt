@@ -29,6 +29,7 @@ infix fun View.clicks(clickAction: () -> Unit) {
         }
     }
 }
+
 /**
  * 防止重复点击
  */

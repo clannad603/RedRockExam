@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>  :Fragment(){
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
     lateinit var mContext: FragmentActivity
     var contentView: View? = null
     lateinit var vm: VM
@@ -49,12 +49,12 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>  :Fragment(){
         }
         return contentView
     }
+
     override fun onResume() {
         super.onResume()
 
 
     }
-
 
 
     abstract fun initVM()

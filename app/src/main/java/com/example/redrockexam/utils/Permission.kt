@@ -9,7 +9,7 @@ class Permission(var context: Context) {
     var REQUEST_CODE = 1
 
     // 申请弹框权限
-    fun requestAlertWindowsPermission(){
+    fun requestAlertWindowsPermission() {
         val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
         intent.data = Uri.parse("package:" + context.packageName)
         context.startActivity(intent)

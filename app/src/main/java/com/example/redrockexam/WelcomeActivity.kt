@@ -10,7 +10,7 @@ import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.ui.mainview.MainActivity
 import com.example.redrockexam.utils.StatusBarUtils
 
-class WelcomeActivity : BaseActivity<BaseViewModel,ActivityWelcomeBinding>(){
+class WelcomeActivity : BaseActivity<BaseViewModel, ActivityWelcomeBinding>() {
     override fun initVM() {
 
     }
@@ -24,7 +24,7 @@ class WelcomeActivity : BaseActivity<BaseViewModel,ActivityWelcomeBinding>(){
     }
 
     override fun initView() {
-        StatusBarUtils.transparentStatusBar(this,true)
+        StatusBarUtils.drawableStatusBar(this, R.color.white)
         ViewCompat.animate(v.imageView).apply {
             //缩放，变成1.0倍
             scaleX(1.0f)
@@ -35,9 +35,9 @@ class WelcomeActivity : BaseActivity<BaseViewModel,ActivityWelcomeBinding>(){
             setListener(object : ViewPropertyAnimatorListener {
                 override fun onAnimationEnd(view: View?) { //动画结束
                     //进入主界面，并结束掉该页面
-                    if (isLogin){
+                    if (isLogin) {
                         startAnotherActivity(MainActivity::class.java)
-                    }else{
+                    } else {
                         startAnotherActivity(LoginActivity::class.java)
                     }
                     finish()

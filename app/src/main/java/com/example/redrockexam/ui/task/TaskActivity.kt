@@ -22,12 +22,12 @@ class TaskActivity : BaseActivity<TaskViewModel, ActivityTaskBinding>() {
     private lateinit var timePickerView: TimePickerView
     override fun initVM() {
         vm.numOfTheApp.observe(this, androidx.lifecycle.Observer {
-            "第${it}条信息注入成功".showToast(this,"short")
+            "第${it}条信息注入成功".showToast(this, "short")
             finish()
         })
         vm.numOfUpdate.observe(this, androidx.lifecycle.Observer {
-            "第${it}条数据更新成功".showToast(this,"short")
-             finish()
+            "第${it}条数据更新成功".showToast(this, "short")
+            finish()
         })
     }
 
@@ -79,38 +79,55 @@ class TaskActivity : BaseActivity<TaskViewModel, ActivityTaskBinding>() {
             .build()
         timePickerView.show()
     }
+
     private fun attemptInsert() {
+        vm.getTag(owner)
         val tag = v.etAddTag.text.toString()
         val titil = v.etAddTitile.text.toString()
         val addStartTime = v.etStartTime.text.toString()
         val addEndTime = v.etEndTime.text.toString()
         val content = v.etAddContent.text.toString()
-        if (tag .isEmpty())
-        {
-            "请输入分类".showToast(this,"short")
-        }
-        else if (titil.isEmpty()){
-            "请输入标签".showToast(this,"short")
-        }else if (addStartTime.isEmpty()){
-            "请输入开始时间".showToast(this,"short")
-        }else if(addEndTime.isEmpty()){
-            "请输入结束时间".showToast(this,"short")
-        }else if (content.isEmpty()){
-            "请输入内容".showToast(this,"short")
-        }else{
-                doInsert(tag,titil,addStartTime,addEndTime,content)
+        var flag = true
+        vm._tagList.observe(this, androidx.lifecycle.Observer {
+            for (tags in it) {
+                if (tag.equals(tags)) {
+                    flag = false
+                }
+            }
+        })
+        if (tag.isEmpty()) {
+            "请输入分类".showToast(this, "short")
+        } else if (flag) {
+            "此标题并不存在，请于主页创建".showToast(this, "short")
+        } else if (titil.isEmpty()) {
+            "请输入标签".showToast(this, "short")
+        } else if (addStartTime.isEmpty()) {
+            "请输入开始时间".showToast(this, "short")
+        } else if (addEndTime.isEmpty()) {
+            "请输入结束时间".showToast(this, "short")
+        } else if (content.isEmpty()) {
+            "请输入内容".showToast(this, "short")
+        } else {
+            doInsert(tag, titil, addStartTime, addEndTime, content)
         }
 
     }
-    private fun doInsert(tag:String,titil:String,startTime:String,endTime:String,content:String){
-        vm.find(owner,tag,titil)
-        val contentInfo = ContentInfo(owner,tag,startTime,endTime,titil,content)
+
+    private fun doInsert(
+        tag: String,
+        titil: String,
+        startTime: String,
+        endTime: String,
+        content: String
+    ) {
+        vm.find(owner, tag, titil)
+        val contentInfo = ContentInfo(owner, tag, startTime, endTime, titil, content)
         vm.contentInfo.observe(this, androidx.lifecycle.Observer {
-            if (it!=null && it.content!=content){
-                "此事件已存在，为您更新数据".showToast(this,"short")
-                vm.update(owner,tag,titil,content)
-            }else if (it==null){
-                "为您注入事件".showToast(this,"short")
+            if (it != null && it.content != content) {
+                "此事件已存在，为您更新数据".showToast(this, "short")
+                vm.update(owner, tag, titil, content)
+            } else if (it == null) {
+                "为您注入事件".showToast(this, "short")
                 vm.insert(contentInfo)
             }
         })

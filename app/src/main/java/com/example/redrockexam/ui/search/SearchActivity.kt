@@ -1,5 +1,6 @@
 package com.example.redrockexam.ui.search
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,31 +16,22 @@ import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivitySearchBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.ui.content.ContentListAdapter
+import com.example.redrockexam.ui.detail.DetailActivity
 import com.example.redrockexam.utils.StatusBarUtils
 import com.example.redrockexam.utils.showToast
 
-class SearchActivity : BaseActivity<SearchViewModel,ActivitySearchBinding>() {
-    var adapter: ContentListAdapter?=null
-    var list:ArrayList<ContentInfo>?=null
-     var mKey:String?=null
+class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
+    var adapter: ContentListAdapter? = null
+    var list: ArrayList<ContentInfo>? = null
     override fun initVM() {
-        vm.titleList.observe(this, Observer {
-            if (it!=null){
-                list?.addAll(it)
-                adapter!!.notifyDataSetChanged()
-            }else{
-                mKey?.let { it1 -> vm.getTagList(owner, it1) }
-            }
-
-        })
-        vm.tagList.observe(this, Observer {
-            if (it!=null){
+        vm.titleList.observe(mContext, Observer {
+            if (it != null) {
                 list?.addAll(it)
                 adapter!!.notifyDataSetChanged()
             }
         })
         vm.listener.observe(this, Observer {
-            "第${it}条信息被删除".showToast(this,"short")
+            "第${it}条信息被删除".showToast(this, "short")
         })
     }
 
@@ -48,19 +40,30 @@ class SearchActivity : BaseActivity<SearchViewModel,ActivitySearchBinding>() {
             super.onBackPressed()
         }
         adapter!!.itemClick {
-
+            val intent = Intent(this, DetailActivity::class.java).apply {
+                putExtra("tag", adapter!!.listData[it].tag)
+                putExtra("title", adapter!!.listData[it].title)
+                putExtra("start", adapter!!.listData[it].startTime)
+                putExtra("end", adapter!!.listData[it].endTime)
+                putExtra("content", adapter!!.listData[it].content)
+            }
+            startActivity(intent)
         }
-        adapter!!.itemLongClick {it->
+        adapter!!.itemLongClick { it ->
             AlertDialog.Builder(mContext).apply {
                 setTitle("Asking")
                 setMessage("您是否想好要删除这个任务呢？")
                 setCancelable(false)
-                setPositiveButton("确定"){_,_,->
+                setPositiveButton("确定") { _, _ ->
                     list?.remove(adapter!!.listData[it])
-                    vm.deleteFromData(owner,adapter!!.listData[it].tag,adapter!!.listData[it].title)
+                    vm.deleteFromData(
+                        owner,
+                        adapter!!.listData[it].tag,
+                        adapter!!.listData[it].title
+                    )
                     adapter!!.notifyDataSetChanged()
                 }
-                setNegativeButton("取消"){it,_,->
+                setNegativeButton("取消") { it, _ ->
                     it.dismiss()
                 }
                 show()
@@ -75,11 +78,12 @@ class SearchActivity : BaseActivity<SearchViewModel,ActivitySearchBinding>() {
     override fun initView() {
         setSupportActionBar(v.toolbar)
         list = ArrayList()
-        adapter = ContentListAdapter(mContext,list!!)
-        v.mRecyclerView.layoutManager= LinearLayoutManager(mContext)
-        v.mRecyclerView.adapter=adapter
+        adapter = ContentListAdapter(mContext, list!!)
+        v.mRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        v.mRecyclerView.adapter = adapter
         StatusBarUtils.drawableStatusBar(this, R.color.white)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu.findItem(R.id.action_search)
@@ -103,10 +107,9 @@ class SearchActivity : BaseActivity<SearchViewModel,ActivitySearchBinding>() {
 
 
         mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
             override fun onQueryTextSubmit(query: String): Boolean {
-                mKey = query
-                vm.getSearch(owner, mKey!!)
+                val mKey = query
+                vm.getSearch(owner, mKey)
                 mSearchView.clearFocus()
                 return false
             }

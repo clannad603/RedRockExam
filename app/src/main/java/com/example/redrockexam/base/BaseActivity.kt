@@ -33,35 +33,35 @@ import java.lang.reflect.ParameterizedType
 public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
 super.onCreate(savedInstanceState, persistentState);
 }
- 此方法导致界面不显示，原因
+此方法导致界面不显示，原因
  */
-abstract class BaseActivity <VM : BaseViewModel, VB : ViewBinding> :AppCompatActivity(){
+abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatActivity() {
     lateinit var mContext: FragmentActivity
     lateinit var vm: VM
     lateinit var v: VB
     var isLogin: Boolean by MyPreference(Constant.KEY_LOGIN, false)
-    var owner:String by MyPreference(Constant.KEY_OWNER,"")
-    lateinit var receiver:ForceOfflineReceiver
+    var owner: String by MyPreference(Constant.KEY_OWNER, "")
+    lateinit var receiver: ForceOfflineReceiver
 
-    inner  class ForceOfflineReceiver:BroadcastReceiver() {
+    inner class ForceOfflineReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
 
-           AlertDialog.Builder(context).apply {
-               setTitle("Warning")
-               setMessage("您是否想好要退出本应用呢？")
-               setCancelable(false)
-               setPositiveButton("确定"){_,_,->
-                   ActivityCollector.finishAll()
-                   isLogin=false
-                   owner=""
-                   val i =Intent(context,LoginActivity::class.java)
-                   context.startActivity(i)
-               }
-               setNegativeButton("取消"){it,_,->
-                   it.dismiss()
-               }
-               show()
-           }
+            AlertDialog.Builder(context).apply {
+                setTitle("Warning")
+                setMessage("您是否想好要退出本应用呢？")
+                setCancelable(false)
+                setPositiveButton("确定") { _, _ ->
+                    ActivityCollector.finishAll()
+                    isLogin = false
+                    owner = ""
+                    val i = Intent(context, LoginActivity::class.java)
+                    context.startActivity(i)
+                }
+                setNegativeButton("取消") { it, _ ->
+                    it.dismiss()
+                }
+                show()
+            }
         }
 
     }
@@ -99,7 +99,7 @@ abstract class BaseActivity <VM : BaseViewModel, VB : ViewBinding> :AppCompatAct
         startActivity(intent)
     }
 
-//    /***
+    //    /***
 //     * 初始化碎片
 //     */
 //    fun  startFragment( id:Int,fragment: BaseFragment){
@@ -118,11 +118,12 @@ abstract class BaseActivity <VM : BaseViewModel, VB : ViewBinding> :AppCompatAct
     abstract fun initData()
     override fun onResume() {
         super.onResume()
-        val intentFilter=IntentFilter()
+        val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.FORCE_OFFLINE")
         receiver = ForceOfflineReceiver()
-        registerReceiver(receiver,intentFilter)
+        registerReceiver(receiver, intentFilter)
     }
+
     abstract fun initView()
     override fun onPause() {
         super.onPause()
