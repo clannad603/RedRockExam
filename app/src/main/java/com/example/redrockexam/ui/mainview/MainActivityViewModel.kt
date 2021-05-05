@@ -41,4 +41,10 @@ class MainActivityViewModel : BaseViewModel() {
     fun deleteTag(owner: String, tag: String) = viewModelScope.launch {
         repository1.deleteTag(owner, tag)
     }
+
+    fun insert(contentInfo: ContentInfo)=viewModelScope
+        .launch {
+
+            repository1.insert(contentInfo)
+        }
 }

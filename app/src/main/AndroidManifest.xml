@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.redrockexam">
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,6 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedRockExam">
+        <service
+            android:name=".logic.service.AlumService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+        </service>
+
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.task.TaskActivity" />
@@ -32,10 +40,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.mainview.MainActivity" />
-        <receiver android:name=".logic.broadcast.SampleBootReceiver"
-            android:enabled="false">
+
+        <receiver
+            android:name=".logic.broadcast.SampleBootReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+                <action android:name="com.example.MYACTIVITY_START"/>
             </intent-filter>
         </receiver>
     </application>

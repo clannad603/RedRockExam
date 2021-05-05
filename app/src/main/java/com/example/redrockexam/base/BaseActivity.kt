@@ -1,20 +1,16 @@
 package com.example.myapplication.ui.base
 
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-
-import android.os.PersistableBundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -22,10 +18,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.redrockexam.logic.model.constant.Constant
 import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.utils.ActivityCollector
-
-
 import com.example.redrockexam.utils.MyPreference
-
 import java.lang.reflect.ParameterizedType
 
 /***
@@ -125,8 +118,10 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
     }
 
     abstract fun initView()
+
     override fun onPause() {
         super.onPause()
         unregisterReceiver(receiver)
     }
+
 }

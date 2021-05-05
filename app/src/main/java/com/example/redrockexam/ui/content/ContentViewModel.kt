@@ -20,7 +20,6 @@ class ContentViewModel : BaseViewModel() {
     fun deleteFromData(owner: String, tag: String, title: String) = viewModelScope.launch {
         listener.value = repository.deleteInfo(owner, tag, title)
     }
-
     var tagList = MutableLiveData<List<ContentInfo>>()
     fun getTagList(owner: String, tag: String) = viewModelScope.launch {
         tagList.value = repository.loadTag(owner, tag)

@@ -18,6 +18,7 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.TotoListApplication.Companion.context
 import com.example.redrockexam.databinding.ActivityMainBinding
+import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.logic.model.bean.LoginInfo
 import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.ui.content.ContentActivity
@@ -115,6 +116,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                     val edit = dialogView.findViewById(R.id.tv_tag) as EditText
                     list?.add(edit.text.toString())
                     adapter!!.notifyDataSetChanged()
+                    val contentInfo = ContentInfo(owner, edit.text.toString(), "", "", "", " ")
+                    vm.insert(contentInfo)
                 }
                 setNegativeButton("取消") { it, _ ->
                     it.dismiss()
@@ -174,5 +177,12 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         list?.add("重要任务")
         list?.add("不太重要任务")
         vm.getTag(owner)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val intent = Intent("com.example.MYACTIVITY_START")
+        intent.setPackage(packageName)
+        sendBroadcast(intent)
     }
 }
