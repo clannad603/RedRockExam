@@ -11,8 +11,8 @@ interface LoginDao {
     @Insert
     suspend fun insertUser(loginInfo: LoginInfo): Long
 
-    @Update
-    suspend fun updateUser(newUser: LoginInfo)
+    @Query("select * from LoginInfo where owner = :owner")
+    suspend fun findTheOwner(owner: String): LoginInfo
 
     @Query("UPDATE logininfo SET uri= :uri WHERE owner = :owner")
     suspend fun updateUserInfo(owner: String, uri: String)
@@ -20,6 +20,13 @@ interface LoginDao {
     @Query("select * from LoginInfo")
     fun loadAllUsers(): MutableList<LoginInfo>
 
+    @Insert
+    fun insertUser_s(loginInfo: LoginInfo): Long
+
     @Query("select * from LoginInfo where owner = :owner")
-    suspend fun findTheOwner(owner: String): LoginInfo
+    fun findTheOwner_s(owner: String): LoginInfo
+
+    @Query("UPDATE logininfo SET uri= :uri WHERE owner = :owner")
+    fun updateUserInfo_s(owner: String, uri: String)
+
 }

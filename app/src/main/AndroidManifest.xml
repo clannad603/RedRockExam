@@ -43,7 +43,7 @@
 
         <receiver
             android:name=".logic.broadcast.SampleBootReceiver"
-            android:directBootAware="true"
+            android:directBootAware="false"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -9,7 +9,7 @@ import com.example.redrockexam.utils.showToast
 
 class SampleBootReceiver:BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action!=null && intent.action == "android.intent.action.BOOT_COMPLETED"||intent.action=="android.intent.action.LOCKED_BOOT_COMPLETED") {
+        if (intent.action!=null && intent.action == "android.intent.action.BOOT_COMPLETED") {
             "Alarm Manager just ran".showToast(context,"short")
         }else{
             val serviceIntent = Intent(context, AlumService::class.java)
