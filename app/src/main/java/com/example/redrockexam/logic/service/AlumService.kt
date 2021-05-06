@@ -67,7 +67,7 @@ class AlumService : Service() {
     suspend fun get(owner:String) = coroutineScope {
         tagList.value=repository.loadTag(owner,"重要任务")
         val tagSize = tagList.value!!.size
-        title.value=if (tagSize!=null) tagList.value!![0].title else " "
-        content.value=if (tagSize!=null) tagList.value!![0].content else " "
+        title.value=if (tagSize!=null) tagList.value!![0].title else " 123"
+        content.value=if (tagSize!=null) tagList.value!![0].content else " 123"
     }
 }

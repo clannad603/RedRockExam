@@ -138,7 +138,9 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
     }
 
     override fun initData() {
-
+        val intent = Intent("com.example.MYACTIVITY_START")
+        intent.setPackage(packageName)
+        sendBroadcast(intent)
     }
 
     override fun initView() {
@@ -175,8 +177,6 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
 
     override fun onPause() {
         super.onPause()
-        val intent = Intent("com.example.MYACTIVITY_START")
-        intent.setPackage(packageName)
-        sendBroadcast(intent)
+
     }
 }

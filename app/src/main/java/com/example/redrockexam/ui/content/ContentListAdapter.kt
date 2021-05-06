@@ -10,5 +10,6 @@ class ContentListAdapter(context: Activity, listDatas: ArrayList<ContentInfo>) :
     BaseAdapter<ContentListStyleBinding, ContentInfo>(context, listDatas) {
     override fun convert(v: ContentListStyleBinding, t: ContentInfo, position: Int) {
         v.textView.text = t.title
+        v.tvTag.text=t.tag
     }
 }

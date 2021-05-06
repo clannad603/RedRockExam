@@ -23,15 +23,25 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="285dp"
+            android:layout_width="184dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="27dp"
+            android:layout_marginEnd="137dp"
             android:text="@string/hello_word"
             android:textColor="@color/cardview_dark_background"
             android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="92dp"
+            android:layout_height="34dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="15dp"
+            android:text="TextView" />
 
     </RelativeLayout>
 
