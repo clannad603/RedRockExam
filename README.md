@@ -1,6 +1,8 @@
 # RedRockExam
 # 内容
-
+![image](https://github.com/clannad603/RedRockExam/blob/master/app/src/main/res/GIF-210506_195844.gif)
+![image](https://github.com/clannad603/RedRockExam/blob/master/app/src/main/res/GIF-210506_200027.gif)
+![image](https://github.com/clannad603/RedRockExam/blob/master/app/src/main/res/GIF-210506_200332.gif)
 ## 一、结构
 
 ### 由于本次考核要求没有给以网络接口，所以对数据的存储，我使用了ROOM来完成，数据库中有两张表，分别为
