@@ -10,7 +10,6 @@ import com.example.redrockexam.logic.utils.*
 class RegisterActivity : BaseActivity<RegisterActivityViewModel, ActivityRegisterBinding>() {
     override fun initVM() {
         vm.numOfTheApp.observe(this, Observer {
-
             showShortToast(this, "你是第${it}注册")
             finish()
         })
