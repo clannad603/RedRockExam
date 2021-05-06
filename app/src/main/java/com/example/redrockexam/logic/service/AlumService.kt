@@ -56,7 +56,7 @@ class AlumService : Service() {
         TODO("Not yet implemented")
     }
     suspend fun get(owner:String) = coroutineScope {
-        tagList.value=repository.find(owner,"重要任务","最重要")
+        tagList.value=repository.find(owner,"重要任务","重要")
         val tagSize = tagList.value
         title.value=if (tagSize!=null) tagList.value!!.title else "没有重要任务"
         content.value=if (tagSize!=null) tagList.value!!.content else "放松一下吧"

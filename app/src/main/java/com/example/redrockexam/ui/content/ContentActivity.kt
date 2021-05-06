@@ -49,11 +49,12 @@ class ContentActivity : BaseActivity<ContentViewModel, ActivityContentBinding>()
                 setMessage("您是否想好要删除这个任务呢？")
                 setCancelable(false)
                 setPositiveButton("确定") { _, _ ->
+                    val tag = adapter!!.listData[it]
                     list?.remove(adapter!!.listData[it])
                     vm.deleteFromData(
                         owner,
-                        adapter!!.listData[it].tag,
-                        adapter!!.listData[it].title
+                        tag.tag,
+                        tag.title
                     )
                     adapter!!.notifyDataSetChanged()
                 }

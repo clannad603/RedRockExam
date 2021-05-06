@@ -48,9 +48,7 @@ class RegisterActivity : BaseActivity<RegisterActivityViewModel, ActivityRegiste
         } else {
             doRegister(username, password, repassword)
         }
-
     }
-
     private fun doRegister(username: String, password: String, uri: String) {
         vm.find(username)
         val registerInfo = LoginInfo(username, password, "")
@@ -61,7 +59,5 @@ class RegisterActivity : BaseActivity<RegisterActivityViewModel, ActivityRegiste
                 vm.insert(registerInfo)
             }
         })
-
-
     }
 }
