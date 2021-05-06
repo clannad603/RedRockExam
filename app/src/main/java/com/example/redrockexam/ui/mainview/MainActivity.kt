@@ -83,9 +83,19 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                 setCancelable(false)
                 setPositiveButton("确定") { _, _ ->
                     val tag = adapter!!.listData[it]
-                    list?.remove(tag)
-                    vm.deleteTag(owner, tag)
-                    adapter!!.notifyDataSetChanged()
+                    if ( tag!= "我的一天"
+                        && tag != "总任务"
+                        && tag != "重要任务"
+                        && tag != "不太重要任务"
+                    ){
+                        list?.remove(tag)
+                        vm.deleteTag(owner, tag)
+                        adapter!!.notifyDataSetChanged()
+                    }else{
+                        "内置模块，不能删除".showToast(mContext,"short")
+                    }
+
+
                 }
                 setNegativeButton("取消") { it, _ ->
                     it.dismiss()
