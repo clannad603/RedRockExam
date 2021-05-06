@@ -1,8 +1,6 @@
 package com.example.redrockexam.ui.search
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -17,8 +15,8 @@ import com.example.redrockexam.databinding.ActivitySearchBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.ui.content.ContentListAdapter
 import com.example.redrockexam.ui.detail.DetailActivity
-import com.example.redrockexam.utils.StatusBarUtils
-import com.example.redrockexam.utils.showToast
+import com.example.redrockexam.logic.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.showToast
 
 class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
     var adapter: ContentListAdapter? = null
@@ -102,8 +100,8 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
         mSearchView.queryHint = "请输入关键字"
 
         val editText = mSearchView.findViewById<EditText>(R.id.search_src_text)
-        editText.setHintTextColor(ContextCompat.getColor(this, R.color.hyperred))
-        editText.setTextColor(ContextCompat.getColor(this, R.color.hyperred))
+        editText.setHintTextColor(ContextCompat.getColor(this, R.color.black))
+        editText.setTextColor(ContextCompat.getColor(this, R.color.black))
 
 
         mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

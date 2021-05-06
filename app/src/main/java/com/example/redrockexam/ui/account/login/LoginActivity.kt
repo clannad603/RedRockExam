@@ -6,9 +6,9 @@ import com.example.redrockexam.ui.mainview.MainActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityLoginBinding
 import com.example.redrockexam.ui.account.register.RegisterActivity
-import com.example.redrockexam.utils.AnimationUtils
-import com.example.redrockexam.utils.StatusBarUtils
-import com.example.redrockexam.utils.showToast
+import com.example.redrockexam.logic.utils.AnimationUtils
+import com.example.redrockexam.logic.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.showToast
 
 class LoginActivity : BaseActivity<LoginActivityViewModel, ActivityLoginBinding>() {
     override fun initVM() {
@@ -16,11 +16,11 @@ class LoginActivity : BaseActivity<LoginActivityViewModel, ActivityLoginBinding>
 
     override fun initListener() {
         v.btnRegister.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             startAnotherActivity(RegisterActivity::class.java)
         }
         v.btnLogin.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             attemptLogin()
         }
     }

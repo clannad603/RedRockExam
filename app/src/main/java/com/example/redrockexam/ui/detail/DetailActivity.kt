@@ -4,7 +4,7 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.myapplication.ui.base.BaseViewModel
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityDetailBinding
-import com.example.redrockexam.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.StatusBarUtils
 
 class DetailActivity : BaseActivity<BaseViewModel, ActivityDetailBinding>() {
     override fun initVM() {

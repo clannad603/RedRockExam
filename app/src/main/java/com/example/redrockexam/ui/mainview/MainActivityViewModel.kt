@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class MainActivityViewModel : BaseViewModel() {
     val dao = AppDatabase.getDatabase(TotoListApplication.context).personDao()
     var userInfo = MutableLiveData<LoginInfo>()
+    var important = MutableLiveData<ContentInfo>()
     var uri = MutableLiveData<Uri>()
     val dao1 = AppDatabase.getDatabase(TotoListApplication.context).contentDao()
     private val repository1 by lazy {
@@ -44,7 +45,7 @@ class MainActivityViewModel : BaseViewModel() {
 
     fun insert(contentInfo: ContentInfo)=viewModelScope
         .launch {
-
             repository1.insert(contentInfo)
         }
+
 }

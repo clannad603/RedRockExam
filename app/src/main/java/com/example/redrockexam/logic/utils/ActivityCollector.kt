@@ -1,4 +1,4 @@
-package com.example.redrockexam.utils
+package com.example.redrockexam.logic.utils
 
 import android.app.Activity
 

@@ -1,10 +1,6 @@
 package com.example.redrockexam.ui.content
 
 import android.content.Intent
-import android.os.BaseBundle
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,9 +9,8 @@ import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityContentBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.ui.detail.DetailActivity
-import com.example.redrockexam.ui.mainview.ToDoListAdapter
-import com.example.redrockexam.utils.StatusBarUtils
-import com.example.redrockexam.utils.showToast
+import com.example.redrockexam.logic.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.showToast
 
 class ContentActivity : BaseActivity<ContentViewModel, ActivityContentBinding>() {
     var adapter: ContentListAdapter? = null

@@ -5,12 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.provider.Settings
-import android.util.Log
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.example.redrockexam.R
 import com.example.redrockexam.TotoListApplication
 import com.example.redrockexam.TotoListApplication.Companion.context
@@ -18,21 +14,16 @@ import com.example.redrockexam.logic.dao.AppDatabase
 import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.logic.model.constant.Constant
 import com.example.redrockexam.logic.repository.ContentRepository
-import com.example.redrockexam.ui.mainview.MainActivity
-import com.example.redrockexam.utils.MyPreference
-import com.example.redrockexam.utils.Permission
-import com.example.redrockexam.utils.showToast
+import com.example.redrockexam.logic.utils.MyPreference
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
-import java.lang.Exception
-import java.util.*
 
 class AlumService : Service() {
     val dao = AppDatabase.getDatabase(TotoListApplication.context).contentDao()
     private val repository by lazy {
         ContentRepository(dao)
     }
-    val tagList =MutableLiveData<MutableList<ContentInfo>>()
+    val tagList =MutableLiveData<ContentInfo>()
     var owner: String by MyPreference(Constant.KEY_OWNER, "")
     var title =MutableLiveData<String>()
     var content=MutableLiveData<String>()
@@ -53,7 +44,7 @@ class AlumService : Service() {
             manager.createNotificationChannel(channel)
         }
         val notification = NotificationCompat.Builder(this, "my_service")
-            .setSmallIcon(R.drawable.add)
+            .setSmallIcon(R.drawable.orane)
             .setContentTitle(title.value)
             .setContentText(content.value)
             .build()
@@ -65,9 +56,9 @@ class AlumService : Service() {
         TODO("Not yet implemented")
     }
     suspend fun get(owner:String) = coroutineScope {
-        tagList.value=repository.loadTag(owner,"重要任务")
-        val tagSize = tagList.value!!.size
-        title.value=if (tagSize!=null) tagList.value!![0].title else " 123"
-        content.value=if (tagSize!=null) tagList.value!![0].content else " 123"
+        tagList.value=repository.find(owner,"重要任务","最重要")
+        val tagSize = tagList.value
+        title.value=if (tagSize!=null) tagList.value!!.title else "没有重要任务"
+        content.value=if (tagSize!=null) tagList.value!!.content else "放松一下吧"
     }
 }

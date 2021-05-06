@@ -1,13 +1,10 @@
 package com.example.myapplication.ui.base
 
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
@@ -16,9 +13,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.redrockexam.logic.model.constant.Constant
+import com.example.redrockexam.logic.service.AlumService
 import com.example.redrockexam.ui.account.login.LoginActivity
-import com.example.redrockexam.utils.ActivityCollector
-import com.example.redrockexam.utils.MyPreference
+import com.example.redrockexam.logic.utils.ActivityCollector
+import com.example.redrockexam.logic.utils.MyPreference
 import java.lang.reflect.ParameterizedType
 
 /***
@@ -48,6 +46,8 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
                     isLogin = false
                     owner = ""
                     val i = Intent(context, LoginActivity::class.java)
+                    val end = Intent(context,AlumService::class.java)
+                    context.stopService(end)
                     context.startActivity(i)
                 }
                 setNegativeButton("取消") { it, _ ->

@@ -1,14 +1,15 @@
-package com.example.redrockexam
+package com.example.redrockexam.ui
 
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import com.example.myapplication.ui.base.BaseActivity
 import com.example.myapplication.ui.base.BaseViewModel
+import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityWelcomeBinding
 import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.ui.mainview.MainActivity
-import com.example.redrockexam.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.StatusBarUtils
 
 class WelcomeActivity : BaseActivity<BaseViewModel, ActivityWelcomeBinding>() {
     override fun initVM() {
@@ -26,7 +27,7 @@ class WelcomeActivity : BaseActivity<BaseViewModel, ActivityWelcomeBinding>() {
     override fun initView() {
         StatusBarUtils.drawableStatusBar(this, R.color.white)
         ViewCompat.animate(v.imageView).apply {
-            //缩放，变成1.0倍
+
             scaleX(1.0f)
             scaleY(1.0f)
             //动画时常1秒

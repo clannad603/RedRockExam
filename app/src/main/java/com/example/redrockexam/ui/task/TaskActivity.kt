@@ -1,7 +1,6 @@
 package com.example.redrockexam.ui.task
 
 import android.text.Editable
-import android.view.View
 import android.widget.EditText
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.view.TimePickerView
@@ -9,10 +8,10 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityTaskBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
-import com.example.redrockexam.utils.AnimationUtils
-import com.example.redrockexam.utils.StatusBarUtils
-import com.example.redrockexam.utils.showToast
-import com.example.redrockexam.utils.time2String
+import com.example.redrockexam.logic.utils.AnimationUtils
+import com.example.redrockexam.logic.utils.StatusBarUtils
+import com.example.redrockexam.logic.utils.showToast
+import com.example.redrockexam.logic.utils.time2String
 import java.util.*
 
 class TaskActivity : BaseActivity<TaskViewModel, ActivityTaskBinding>() {
@@ -35,15 +34,15 @@ class TaskActivity : BaseActivity<TaskViewModel, ActivityTaskBinding>() {
             super.onBackPressed()
         }
         v.btnAddTime.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             initDialog1(v.etStartTime)
         }
         v.btnEndTime.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             initDialog2(v.etEndTime)
         }
         v.flABtnAdd.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             attemptInsert()
         }
     }

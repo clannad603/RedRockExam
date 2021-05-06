@@ -16,10 +16,11 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityMainBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
+import com.example.redrockexam.logic.model.constant.Constant
 import com.example.redrockexam.ui.content.ContentActivity
 import com.example.redrockexam.ui.search.SearchActivity
 import com.example.redrockexam.ui.task.TaskActivity
-import com.example.redrockexam.utils.*
+import com.example.redrockexam.logic.utils.*
 
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
@@ -47,6 +48,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
             ).into(v.imageViewUser)
         })
         vm._tagList.observe(this, Observer {
+
             if (it != null) {
                 for (tags in it) {
                     if (tags.tag != "我的一天"
@@ -105,11 +107,11 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
 
         }
         v.btnNew.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             startAnotherActivity(TaskActivity::class.java)
         }
         v.flABtnAdd.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             val dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_style, null)
             AlertDialog.Builder(mContext).apply {
                 setTitle("Asking")
@@ -130,7 +132,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
             }
         }
         v.btnOut.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             val intent = Intent("com.example.FORCE_OFFLINE")
             sendBroadcast(intent)
         }
@@ -142,15 +144,17 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
             true
         }
         v.imageViewUser.setOnClickListener {
-            AnimationUtils.buttonClickAnimation(it)
+            AnimationUtils.clickAnimation(it)
             "禁止在乱点".showToast(this, "short")
         }
     }
 
     override fun initData() {
-        val intent = Intent("com.example.MYACTIVITY_START")
-        intent.setPackage(packageName)
-        sendBroadcast(intent)
+
+            val intent = Intent("com.example.MYACTIVITY_START")
+            intent.setPackage(packageName)
+            sendBroadcast(intent)
+
     }
 
     override fun initView() {

@@ -5,7 +5,7 @@ import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
 import com.example.redrockexam.databinding.ActivityRegisterBinding
 import com.example.redrockexam.logic.model.bean.LoginInfo
-import com.example.redrockexam.utils.*
+import com.example.redrockexam.logic.utils.*
 
 class RegisterActivity : BaseActivity<RegisterActivityViewModel, ActivityRegisterBinding>() {
     override fun initVM() {
