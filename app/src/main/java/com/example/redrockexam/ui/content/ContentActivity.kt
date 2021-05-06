@@ -42,8 +42,8 @@ class ContentActivity : BaseActivity<ContentViewModel, ActivityContentBinding>()
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("tag", adapter!!.listData[it].tag)
                 putExtra("title", adapter!!.listData[it].title)
-                putExtra("start", adapter!!.listData[it].startTime)
-                putExtra("end", adapter!!.listData[it].endTime)
+                putExtra("start", adapter!!.listData[it].startTime.toString())
+                putExtra("end", adapter!!.listData[it].endTime.toString())
                 putExtra("content", adapter!!.listData[it].content)
             }
             startActivity(intent)

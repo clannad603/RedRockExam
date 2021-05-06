@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.redrockexam.logic.model.bean.ContentInfo
 import com.example.redrockexam.logic.model.bean.LoginInfo
 
 @Database(version = 1, entities = [LoginInfo::class, ContentInfo::class])
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun personDao(): LoginDao
     abstract fun contentDao(): ContentDao

@@ -26,7 +26,7 @@ class DetailActivity : BaseActivity<BaseViewModel, ActivityDetailBinding>() {
         val tag = intent.getStringExtra("tag")
         v.tvTag.text = tag
         val start = intent.getStringExtra("start")
-        v.tvStart.text = start
+        v.tvStart.text = start.toString()
         val end = intent.getStringExtra("end")
         v.tvEnd.text = end
         val content = intent.getStringExtra("content")

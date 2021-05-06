@@ -3,12 +3,10 @@ package com.example.redrockexam.ui.mainview
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,11 +14,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.ui.base.BaseActivity
 import com.example.redrockexam.R
-import com.example.redrockexam.TotoListApplication.Companion.context
 import com.example.redrockexam.databinding.ActivityMainBinding
 import com.example.redrockexam.logic.model.bean.ContentInfo
-import com.example.redrockexam.logic.model.bean.LoginInfo
-import com.example.redrockexam.ui.account.login.LoginActivity
 import com.example.redrockexam.ui.content.ContentActivity
 import com.example.redrockexam.ui.search.SearchActivity
 import com.example.redrockexam.ui.task.TaskActivity
@@ -66,7 +61,6 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
             }
         })
     }
-
 
     override fun initListener() {
         v.toolbar.setOnMenuItemClickListener {
@@ -116,7 +110,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                     val edit = dialogView.findViewById(R.id.tv_tag) as EditText
                     list?.add(edit.text.toString())
                     adapter!!.notifyDataSetChanged()
-                    val contentInfo = ContentInfo(owner, edit.text.toString(), "", "", "", " ")
+                    val contentInfo = ContentInfo(owner, edit.text.toString(), null, null, "", " ")
                     vm.insert(contentInfo)
                 }
                 setNegativeButton("取消") { it, _ ->
